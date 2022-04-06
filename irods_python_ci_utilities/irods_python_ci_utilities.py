@@ -1,3 +1,4 @@
+import codecs
 import contextlib
 import errno
 import json
@@ -41,23 +42,21 @@ def subprocess_get_output(*args, **kwargs):
     p = subprocess.Popen(*args, **kwargs)
     out_b, err_b = p.communicate(data)
 
+    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+
     if out_b:
         out = out_b.decode('utf-8') if isinstance(out_b, bytes) else out_b
-        try:
-            print(out)
-        except UnicodeEncodeError:
-            print(out_b)
+        sys.stdout.write(out)
     else:
         out = ''
 
     if err_b:
         err = err_b.decode('utf-8') if isinstance(err_b, bytes) else err_b
-        try:
-            print(err)
-        except UnicodeEncodeError:
-            print(err_b)
+        sys.stdout.write(err)
     else:
         err = ''
+
+    sys.stdout.flush()
 
     if check_rc:
         if p.returncode != 0:
