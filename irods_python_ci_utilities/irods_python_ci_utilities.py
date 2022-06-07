@@ -12,7 +12,10 @@ import time
 from . import copied_from_ansible
 
 def get_distribution(slash_substitute_character='_'):
-    return copied_from_ansible.get_distribution().replace('/', slash_substitute_character)
+    distribution = copied_from_ansible.get_distribution()
+    print(distribution)
+    print(distribution.replace('/', slash_substitute_character))
+    return distribution if not distribution else distribution.replace('/', slash_substitute_character)
 
 def get_distribution_version_major():
     return copied_from_ansible.get_distribution_version().split('.')[0]
