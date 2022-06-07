@@ -13,7 +13,8 @@ from . import copied_from_ansible
 
 def get_distribution(slash_substitute_character='_'):
     distribution = copied_from_ansible.get_distribution()
-    print('what the crap')
+    print('path to copied_from_ansible:[{}]'.format(copied_from_ansible.__file__))
+    print('path to irods_python_ci_utilities:[{}]'.format(__file__))
     print(distribution)
     print(distribution.replace('/', slash_substitute_character))
     return_value = distribution.replace('/', slash_substitute_character)
