@@ -85,7 +85,7 @@ def install_os_packages_zypper(packages):
 def install_os_packages(packages):
     dispatch_map = {
         'Ubuntu': install_os_packages_apt,
-        'Debian': install_os_packages_apt,
+        'Debian gnu/linux': install_os_packages_apt,
         'Centos': install_os_packages_yum,
         'Centos linux': install_os_packages_yum,
         'Almalinux': install_os_packages_yum,
@@ -115,7 +115,7 @@ def install_os_packages_from_files_zypper(files):
 def install_os_packages_from_files(files):
     dispatch_map = {
         'Ubuntu': install_os_packages_from_files_apt,
-        'Debian': install_os_packages_from_files_apt,
+        'Debian gnu/linux': install_os_packages_from_files_apt,
         'Centos': install_os_packages_from_files_yum,
         'Centos linux': install_os_packages_from_files_yum,
         'Almalinux': install_os_packages_from_files_yum,
@@ -143,7 +143,7 @@ def install_irods_core_dev_repository_zypper():
 def install_irods_core_dev_repository():
     dispatch_map = {
         'Ubuntu': install_irods_core_dev_repository_apt,
-        'Debian': install_irods_core_dev_repository_apt,
+        'Debian gnu/linux': install_irods_core_dev_repository_apt,
         'Centos': install_irods_core_dev_repository_yum,
         'Centos linux': install_irods_core_dev_repository_yum,
         'Almalinux': install_irods_core_dev_repository_yum,
@@ -157,7 +157,7 @@ def install_irods_core_dev_repository():
 
 def get_package_suffix():
     d = copied_from_ansible.get_distribution()
-    if d in ['Ubuntu', 'Debian']:
+    if d in ['Ubuntu', 'Debian gnu/linux']:
         return 'deb'
     if d in ['Centos', 'Centos linux', 'Opensuse ', 'Opensuse leap', 'Almalinux']:
         return 'rpm'
@@ -230,7 +230,7 @@ def git_clone(repository, commitish=None, local_dir=None):
 def install_database(database_type):
     dispatch_map = {
         'Ubuntu': install_database_debian,
-        'Debian': install_database_debian,
+        'Debian gnu/linux': install_database_debian,
         'Centos': install_database_redhat,
         'Centos linux': install_database_redhat,
         'Almalinux': install_database_redhat,
@@ -345,7 +345,7 @@ def install_database_suse(database_type):
 
 def get_mysql_pcre_build_dependencies():
     distribution = copied_from_ansible.get_distribution()
-    if distribution in ['Ubuntu', 'Debian']:
+    if distribution in ['Ubuntu', 'Debian gnu/linux']:
         return ['libpcre3-dev', 'libmysqlclient-dev', 'build-essential', 'libtool', 'autoconf', 'git']
     if distribution in ['Centos', 'Centos linux', 'Almalinux']:
         return ['pcre-devel', 'gcc', 'make', 'automake', 'mysql-devel', 'autoconf', 'git']
@@ -355,7 +355,7 @@ def get_mysql_pcre_build_dependencies():
 
 def get_mysql_service_name():
     distribution = copied_from_ansible.get_distribution()
-    if distribution in ['Ubuntu', 'Debian']:
+    if distribution in ['Ubuntu', 'Debian gnu/linux']:
         return 'mysql'
     if distribution == 'Centos':
         return 'mysqld'
