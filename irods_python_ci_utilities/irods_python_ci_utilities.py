@@ -13,6 +13,7 @@ from . import copied_from_ansible
 
 def get_distribution(slash_substitute_character='_'):
     distribution = copied_from_ansible.get_distribution()
+    print('what the crap')
     print(distribution)
     print(distribution.replace('/', slash_substitute_character))
     return distribution if not distribution else distribution.replace('/', slash_substitute_character)
