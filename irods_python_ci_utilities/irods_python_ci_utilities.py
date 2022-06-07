@@ -16,7 +16,8 @@ def get_distribution(slash_substitute_character='_'):
     print('what the crap')
     print(distribution)
     print(distribution.replace('/', slash_substitute_character))
-    return distribution if not distribution else distribution.replace('/', slash_substitute_character)
+    #return distribution if not distribution else distribution.replace('/', slash_substitute_character)
+    return distribution.replace('/', slash_substitute_character)
 
 def get_distribution_version_major():
     return copied_from_ansible.get_distribution_version().split('.')[0]
