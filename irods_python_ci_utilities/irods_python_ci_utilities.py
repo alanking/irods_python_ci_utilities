@@ -25,10 +25,10 @@ def get_irods_platform_string():
     return get_distribution() + '_' + get_distribution_version_major()
 
 def raise_not_implemented_for_distribution():
-    raise NotImplementedError('not implemented for distribution [{0}]'.format(copied_from_ansible.get_distribution()), sys.exc_info()[2])
+    raise NotImplementedError('not implemented for distribution [{0}]'.format(get_distribution()), sys.exc_info()[2])
 
 def raise_not_implemented_for_distribution_major_version():
-    raise NotImplementedError('not implemented for distribution [{0}] major version [{1}]'.format(copied_from_ansible.get_distribution(), get_distribution_version_major()), sys.exc_info()[2])
+    raise NotImplementedError('not implemented for distribution [{0}] major version [{1}]'.format(get_distribution(), get_distribution_version_major()), sys.exc_info()[2])
 
 def subprocess_get_output(*args, **kwargs):
     kwargs['stdout'] = subprocess.PIPE
@@ -160,7 +160,7 @@ def install_irods_core_dev_repository():
         raise_not_implemented_for_distribution()
 
 def get_package_suffix():
-    d = copied_from_ansible.get_distribution()
+    d = get_distribution()
     if d in ['Ubuntu', 'Debian gnu_linux']:
         return 'deb'
     if d in ['Centos', 'Centos linux', 'Opensuse ', 'Opensuse leap', 'Almalinux']:
@@ -241,7 +241,7 @@ def install_database(database_type):
         'Opensuse ': install_database_suse,
     }
     try:
-        dispatch_map[copied_from_ansible.get_distribution()](database_type)
+        dispatch_map[get_distribution()](database_type)
     except KeyError:
         raise_not_implemented_for_distribution()
 
@@ -348,7 +348,7 @@ def install_database_suse(database_type):
         raise NotImplementedError('install_database_suse not implemented for database type [{0}]'.format(database_type))
 
 def get_mysql_pcre_build_dependencies():
-    distribution = copied_from_ansible.get_distribution()
+    distribution = get_distribution()
     if distribution in ['Ubuntu', 'Debian gnu_linux']:
         return ['libpcre3-dev', 'libmysqlclient-dev', 'build-essential', 'libtool', 'autoconf', 'git']
     if distribution in ['Centos', 'Centos linux', 'Almalinux']:
@@ -358,7 +358,7 @@ def get_mysql_pcre_build_dependencies():
     raise_not_implemented_for_distribution()
 
 def get_mysql_service_name():
-    distribution = copied_from_ansible.get_distribution()
+    distribution = get_distribution()
     if distribution in ['Ubuntu', 'Debian gnu_linux']:
         return 'mysql'
     if distribution == 'Centos':
